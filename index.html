@@ -1,88 +1,624 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+<!doctype html>
+<html lang="ko">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>9wishes_Redisign</title>
+      <!-- 1. 초기화 -->
+      <link href="./css/reset.css" rel="stylesheet" type="text/css">
+        
+      <!-- 2. 공통서식 -->
+      <link href="./css/base.css" rel="stylesheet" type="text/css">
 
-  <script>
-    // JS에서는 함수 function 키워드를 통해 정의한다.
-    function getGrade(){
-      /*
-      문서객체를 통해 특정 아이디가 부여된 엘리컨트를 얻어온다.
-      input태그에 입력된 값은 value속성을 통해 얻어올 수 있다.
-      입력된 값은 string(문자열) 형태로 가져오게 되므로 산술연산을 위해 number(숫자)타입으로 변환해야한다.
-      이때 parseInt()를 사용한다.
-      */
-      var kor = parseInt(document.getElementById("kor").value);
-      var eng = parseInt(document.getElementById("eng").value);
-      var math = parseInt(document.getElementById("math").value);
-      // 3과목의 평균점수를 계산한다.
-      var avg = (kor+eng+math) / 3;
+      <!--3. layout서식 -->
+      <!--pc화면크기 1920 ~1200-->
+      <link href="./css/pc_layout.css" rel="stylesheet" type="text/css">
+      <!--pc화면크기 1200 ~1025-->
+      <link href="./css/pc_layout_2.css" rel="stylesheet" type="text/css">
 
-      // 평균 점수를 통해 학점을 경정한다. 특히 F학점인 경우 HTML태그를 포함하고 있다.
-      var strGrade="";
-      if(avg>=90) strGrade="A학점";
-      else if(avg>=80) strGrade="B학점";
-      else if(avg>=70) strGrade="C학점";
-      else if(avg>=60) strGrade="D학점";
-      else strGrade="<strike>F학점</strike>";
+      <link href="./css/tablet_layout.css" rel="stylesheet" type="text/css">
 
-      /*
-      span, div태그와 같이 시작태그와 종료 태그가 있는 도든 태그는
-      아래 2개의 속성을 가지고 있다.
-      -innerHTML : 태그 사이틔 컨텐츠를 HTML태그를 해석한 상태로 표현한다. 
-      -innerTexT : HTML태그의 해석없이 텍스트 상태로 표현한다. 즉 태그를 쓰면 마크업없이 그대로 출력된다.
-      */
-      // document.getElementById("gradePrint").innerHTML = strGrade;
-      document.getElementById("gradePrint").innerText = strGrade;
-    }
-  </script>
+      <link href="./css/mobile_layout.css" rel="stylesheet" type="text/css">
 
-</head>
+      <!--아이콘 폰트-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<body>
+      <!--구글 아이콘 폰트 적용-->
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        
+      <!-- 슬라이드 서식 -->
+      <link href="./css/flexslider.css" rel="stylesheet" type="text/css">
+        
+      <!-- 제이쿼리 플러그인 ** 순서 바뀌면 안됨 **-->
+      <script src="./script/jquery.js"></script>
+      <script src="./script/jquery.flexslider.js"></script>
 
-  <h2>조건문 - if문</h2>
-  <!--
-    input태그에 점수를 입력한 후 js에서 접근하여 값을 얻어갈 수 있도록 id속성이 부여되어있다.
-    document 즉 문서객체를 통해 HTML의 엘리먼트에 접근할 수 있다.
-  -->
-  <table border="1">
+      <!-- 구글  폰트 -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
-    <tr>
-      <td>국어</td>
-      <td><input type="text" id="kor"></td>
-    </tr>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
-    <tr>
-      <td>영어</td>
-      <td><input type="text" id="eng"></td>
-    </tr>
+    </head>
 
-    <tr>
-      <td>수학</td>
-      <td><input type="text" id="math"></td>
-    </tr>
+    <body>
+        <input type="checkbox" id=toggle>
 
-    <tr>
-      <td>학점</td>
-      <td id="gradePrint">학점은 요기에@.@</td>
-    </tr>
+        <!-- 상단해더영역 시작 -->
+        <header>
+            <div class="h_menu">
+                <h1>
+                    <a href="index.html" title="메인페이지로 바로가기">
+                        <img src="./01_image/00_logo.png" alt="상단로고">
+                    </a>
+                </h1>
 
-    <tr>
-      <td colspan="2" style="text-align: center;">
-        <!--
-          버튼을 클릭하면 발생되는 이벤트를 감지하여 이벤트 핸들러를 통해 JS의 함수를 호출한다.
-        -->
-        <button type="button" onclick="getGrade();">학점계산하기</button>
-      </td>
-    </tr>
+                <nav class="t_menu">
+                    <ul>
+                        <li><a href="long.html" title="로그인">로그인</a></li>
+                        <li><a href="join.html" title="회원가입">회원가입</a></li>
+                        <li><a href="mypege.html" title="마이페이지">마이페이지</a></li>
+                        <li><a href="story.html" title="매장찾기">매장찾기</a></li>
+                        <li><input type="text" id="search"><label for="search"><i class="fas fa-search"></i></label></li>
+                    </ul>
+                </nav>
+            </div>
 
-  </table>
+            <!-- 전체메뉴 버튼 -->
+            <label for="toggle" class="total_btn"><i class="fas fa-bars"></i></label>
+            <!-- 검색 버튼 -->
+            <i class="fas fa-search search_btn" ></i>
 
+           <!-- 메인메뉴 -->
+            <nav class="gnb">
+                <h3>menu</h3>
+                <label for="toggle"><i class="fas fa-times"></i></label>
+
+               <ul>
+                   <li><a href="brand.html" title="브랜드 소개">BRAND<i class="fas fa-angle-down"></i></a>
+                       <ul class="sub">
+                           <li><a href="brand_story.htm" title="브랜드 스토리">BRAND STORY</a></li>
+                       </ul>
+                   </li>
+
+                   <li><a href="product.html" title="제품소개">PRODUCT<i class="fas fa-angle-down"></i></a>
+                       <ul class="sub">
+                           <li><a href="by_type.html" title="유형별 소개">유형별</a>
+                              <!-- <ul>
+                                  <li><a href="#" title=""></a></li>
+                                  <li><a href="#" title=""></a></li>
+                                  <li><a href="#" title=""></a></li>
+                                  <li><a href="#" title=""></a></li>
+                                  <li><a href="#" title=""></a></li>
+                                  <li><a href="#" title=""></a></li>
+                                  <li><a href="#" title=""></a></li>
+                                  <li><a href="#" title=""></a></li>
+                                  <li><a href="#" title=""></a></li>
+                              </ul> -->
+                            </li>
+                           <li><a href="worries_by.html" title="고민별 소개">고민별</a>
+                              <!-- <ul>
+                                 <li><a href="#" title=""></a></li>
+                                 <li><a href="#" title=""></a></li>
+                                  <li><a href="#" title=""></a></li>
+                                 <li><a href="#" title=""></a></li>
+                                 <li><a href="#" title=""></a></li>
+                                 <li><a href="#" title=""></a></li>
+                             </ul> -->
+                          </li>
+                           <li><a href="special_line.html" title="스페셜라인">스페셜라인</a>
+                              <!-- <ul>
+                                 <li><a href="#" title=""></a></li>
+                                 <li><a href="#" title=""></a></li>
+                                 <li><a href="#" title=""></a></li>
+                                 <li><a href="#" title=""></a></li>
+                                 <li><a href="#" title=""></a></li>
+                                 <li><a href="#" title=""></a></li>
+                                 <li><a href="#" title=""></a></li>
+                              </ul> -->
+                          </li>
+                       </ul>
+                   </li>
+
+                   <li><a href="media.html" title="미디어">MEDIA<i class="fas fa-angle-down"></i></a>
+                      <ul class="sub">
+                           <li><a href="move.html" title="영상">영상</a></li>
+                           <li><a href="magazine.html" title="매거진">매거진</a></li>
+                           <li><a href="content.html" title="컨텐츠">컨텐츠</a></li>
+                           <li><a href="naver_tv.html" title="네이버 TV">네이버 TV<!--(TV cast)--></a></li>
+                           <li><a href="naver_post.html" title="네이버 포스트">네이버 포스트<!--(naver post)--></a></li>
+                      </ul>
+                   </li>
+
+                   <li><a href="consulting.html" title="컨설팅">CONSULTING<i class="fas fa-angle-down"></i></a>
+                      <ul class="sub">
+                           <li><a href="1:1consulting.html" title="1:1 컨설팅 받기">1:1 컨설팅 받기</a></li>
+                      </ul>
+                   </li>
+
+                   <li><a href="event.html" title="이벤트">EVENT<i class="fas fa-angle-down"></i></a>
+                      <ul class="sub">
+                           <li><a href="event_ing.html" title="진행중인 이벤트">진행중인 이벤트</a></li>
+                           <li><a href="event_end.html" title="종료된 이벤트">종료된 이벤트</a></li>
+                           <li><a href="event.html" title="당첨자 발표">당첨자 발표</a></li>
+                      </ul>
+                   </li>
+
+                   <li><a href="community.html" title="커뮤니티">COMMUNITY<i class="fas fa-angle-down"></i></a>
+                      <ul class="sub">
+                        <li><a href="notice.html" title="공지사항">공지사항</a></li>
+                        <li><a href="information.html" title="매장안내">매장안내</a></li>
+                        <li><a href="#qna.html" title="자주 묻는 질문">자주 묻는 질문</a></li>
+                      </ul>
+                   </li>
+               </ul>
+           </nav>
+        </header>
+
+        <!-- 콘텐츠영역 시작 -->
+        <main>
+
+            <article class="visual"><h2 class="title_hidden">슬라이드</h2>
+
+                <!-- 메인 슬라이드(pc용) -->
+                <div class="flexslider" id="pc_slide">
+                    <ul class="slides">
+                        <li><img src="./01_image/01_main_pc01.jpg" alt="메인이미지01">
+                            <p class="m_text01"><span class="m_box">BEST</span><br>
+                                마르지 않는 압도적 수분감,<br>
+                            하이드라 앰플 &#x2161;<br>
+                            <span>유분이 고민될 땐 수분에 집중!</span></p>
+                        </li>
+                        <li><img src="./01_image/01_main_pc02.jpg" alt="메인이미지02">
+                            <p class="m_text01">똑똑하게 <br>담아낸 <br>아름다움,<br>
+                            <span class="s_b">smart beaty</span></p>
+                        </li>
+                        <li><img src="./01_image/01_main_pc03.jpg" alt="메인이미지03">
+                            <p class="m_text01"><span class="m_box01">event</span><br>
+                                수분&#x00B7;생기&#x00B7;광채 꿀조합<br>요즘베이스<br>
+                            <span>수련언니도 쓰는 베이스 비비&#x002B;최초&#x00B7;최대 혜택!</span></p>
+                        </li>
+                        <li><img src="./01_image/01_main_pc04.jpg" alt="메인이미지04">
+                            <p class="m_text01"><span class="m_box">BEST</span><br>
+                                모공이 도드라져 보인다면,<br>
+                            모공잡는 파인라인!<br>
+                            <span>여름엔 산뜻하게 솔잎케어</span></p>
+                        </li>
+                        <li><img src="./01_image/01_main_pc05.jpg" alt="메인이미지05">
+                            <p class="m_text01"><span class="m_box01">event</span><br>
+                                착한 성분으로 똑똑하게<br>
+                                쌀가루로 데일리 스크럽<br>
+                            <span>블랙헤드&#x0026;각질제거 자극 없이 한번에!</span></p>
+                        </li>
+                    </ul>
+                </div>
+
+                 <!-- 메인 슬라이드(tablet용) -->
+                <div class="flexslider" id="tablet_slide">
+                    <ul class="slides">
+                        <li><img src="./01_image/01_main_ta01.jpg" alt="메인이미지01">
+                            <p class="m_text01"><span class="m_box">BEST</span><br>
+                                마르지 않는 압도적 수분감,<br>
+                            하이드라 앰플 &#x2161;<br>
+                            <span>유분이 고민될 땐 수분에 집중!</span></p>
+                        </li>
+                        <li><img src="./01_image/01_main_ta02.jpg" alt="메인이미지02">
+                            <p class="m_text01">똑똑하게 <br>담아낸 <br>아름다움,<br>
+                            <span class="s_b">smart beaty</span></p>
+                        </li>
+                        <li><img src="./01_image/01_main_ta03.jpg" alt="메인이미지03">
+                            <p class="m_text01"><span class="m_box01">event</span><br>
+                                수분&#x00B7;생기&#x00B7;광채 꿀조합<br>요즘베이스<br>
+                            <span>수련언니도 쓰는 베이스 비비&#x002B;최초&#x00B7;최대 혜택!</span></p>
+                        </li>
+                        <li><img src="./01_image/01_main_ta04.jpg" alt="메인이미지04">
+                            <p class="m_text01"><span class="m_box">BEST</span><br>
+                                모공이 도드라져 보인다면,<br>
+                            모공잡는 파인라인!<br>
+                            <span>여름엔 산뜻하게 솔잎케어</span></p>
+                        </li>
+                        <li><img src="./01_image/01_main_ta05.jpg" alt="메인이미지05">
+                            <p class="m_text01"><span class="m_box01">event</span><br>
+                                착한 성분으로 똑똑하게<br>
+                                쌀가루로 데일리 스크럽<br>
+                            <span>블랙헤드&#x0026;각질제거 자극 없이 한번에!</span></p>
+                        </li>
+                    </ul>
+                </div>
+
+                 <!-- 메인 슬라이드(mobile용) -->
+                <div class="flexslider" id="mobile_slide">
+                    <ul class="slides">
+                        <li><img src="./01_image/01_main_m01.jpg" alt="메인이미지01">
+                            <p class="m_text01"><span class="m_box">BEST</span><br>
+                                마르지 않는 압도적 수분감,<br>
+                            하이드라 앰플 &#x2161;<br>
+                            <span>유분이 고민될 땐 수분에 집중!</span></p>
+                        </li>
+                        <li><img src="./01_image/01_main_m02.jpg" alt="메인이미지02">
+                            <p class="m_text01">똑똑하게 <br>담아낸 <br>아름다움,<br>
+                            <span class="s_b">smart beaty</span></p>
+                        </li>
+                        <li><img src="./01_image/01_main_m03.jpg" alt="메인이미지03">
+                            <p class="m_text01"><span class="m_box01">event</span><br>
+                                수분&#x00B7;생기&#x00B7;광채 꿀조합<br>요즘베이스<br>
+                            <span>수련언니도 쓰는 베이스 비비&#x002B;최초&#x00B7;최대 혜택!</span></p>
+                        </li>
+                        <li><img src="./01_image/01_main_m04.jpg" alt="메인이미지04">
+                            <p class="m_text01"><span class="m_box">BEST</span><br>
+                                모공이 도드라져 보인다면,<br>
+                            모공잡는 파인라인!<br>
+                            <span>여름엔 산뜻하게 솔잎케어</span></p>
+                        </li>
+                        <li><img src="./01_image/01_main_m05.jpg" alt="메인이미지05">
+                            <p class="m_text01"><span class="m_box01">event</span><br>
+                                착한 성분으로 똑똑하게<br>
+                                쌀가루로 데일리 스크럽<br>
+                            <span>블랙헤드&#x0026;각질제거 자극 없이 한번에!</span></p>
+                        </li>
+                    </ul>
+                </div>
+            
+            </article>
+
+            <!-- 1번째 나인위시스 상단 안내 멘트 -->
+            <section class="nine_wishes">
+                <h3>똑똑함이 담아낸 아름다움, <br>
+                    <span>나인위시스</span></h3>
+                <article><h4>>나인위시스</h4>
+                  <div>
+                     <ul class="innovate">
+                         <li>Innovate</li>
+                         <li>똑똑한 소비자를 위한 화장품</li>
+                         <li>혁신하다, 획기적이다</li>
+                     </ul>
+                     
+                     <i class="material-icons add first">add</i>
+                     
+                     <ul class="smart">
+                         <li>Smart</li>
+                         <li><span class="tablet01">매일</span> 달라지는 피부를 위한 화장품</li>
+                         <li>똑똑한, 영리한</li>
+                     </ul>
+                     
+                     <i class="material-icons add two">add</i>
+
+                     <ul class="beauty">
+                         <li>Beauty</li>
+                         <li><span class="tablet02">새로운 해석으로</span> 눈이 즐거운 화장품</li>
+                         <li>아름다움</li>
+                     </ul>
+                  </div>
+                  <p class="nine9"><span class="nine01">소비자를 위한 똑똑한 화장품</span><br>
+                      뷰티로 답을 찾다!</p>
+                  <p class="nine"><span class="nine02">피부 타입별 맞춤 솔루션</span><br>
+                        똑똑한 뷰티 컨설팅 받으러 가기
+                      <a href="consult.html" title="컨설팅 받으러 가기"><span class="nine03">Going to<br>
+                        consult</span><i class="material-icons">arrow_forward</i></a>
+                  </p>
+                </article>
+            </section>
+ 
+            <!-- 2번째 퀸's 픽 제품들 -->
+            <section class="queein">
+                <h3>QUEEIN'S PICK</h3>
+                <article class="pick"><h4>QUEEIN'S PICK</h4>
+                    <ul>
+                       <li class="vb_pre">
+                          <a href="#" title="VB프리미엄_톤업크림">
+                              <img src="./01_image/02_main01.png" alt="VB프리미엄_톤업크림">
+                              <p class="pick_txt">[VB]프리미엄</p>
+                              <p>묻어남 없이 깔끔한 톤업크림</p>
+                          </a>
+                      </li>
+                      <li class="hy_amp">
+                        <a href="#" title="하이드라 앰플">
+                          <img src="./01_image/02_main02.png" alt="하이드라 앰플">
+                          <p class="pick_txt">하이드라 앰플</p>
+                          <p>수분&#x002F;진정&#x002F;장벽 1순위 수분앰플</p>
+                        </a>
+                  </li>
+                  <li class="calm_amp">
+                    <a href="#" title="캄 앰플 세럼">
+                      <img src="./01_image/02_main03.png" alt="캄 앰플 세럼">
+                      <p class="pick_txt">캄 앰플 세럼</p>
+                      <p>예민해진 피부를 위한 고농축 진정 앰플</p>
+                    </a>
+                  </li>
+                  </ul>
+                  <i class="fa fa-angle-left"></i>
+                  <i class="fa fa-angle-right"></i>
+                </article>
+            </section>
+
+            <!-- 3번째 퀸's 픽 포토및영상 -->
+            <section class="media"><h4>media</h4>
+                <article class="photo"><h4>photo</h4>
+                    <a href="#" title="VBpremium">
+                      <img src="./01_image/03_zia_main.jpg" alt="퀸이 선택한 톤업크림">
+                     <p>압도적인 판매
+                        <span>1위</span><br>
+                        '<span>퀸</span>'이 선택한<br> 
+                        <span>VB톤업크림</span></p>
+                  </a>
+                </article>
+
+                <article class="movie"><h4>movie</h4>
+                    <video controls src="./03_move/main_video.mp4" autoplay muted></video>
+                </article>
+            </section>
+
+            <!-- 4번째 #태그 -->
+            <section class="tag">
+                <h4>TAG</h4>
+                <article><h4>TAG</h4>
+                        <p  class="tag_txt">
+                            <a href="ton_up.html" title="요즘세대톤업크림">#요즘세대톤업크림</a>
+                            <a href="one.html" title="출시와동시에1위">#출시와동시에1위</a>
+                            <a href="simsuryeon.html" title="화제의_심수련_톤업크림">#화제의_심수련_톤업크림</a>
+                            <a href="ninewishes.html" title="톤업은_역시_나인위시스">#톤업은_역시_나인위시스</a></p>
+                </article>
+            </section>
+
+            <!-- 5번째 스페셜라인 -->
+            <section class="spe_line">
+                <h3>SPECIAL LINE</h3>
+             <article><h4>SPECIAL LINE</h4>
+                 <ul>
+                      <li  class="hy_line">
+                          <a href="hy_line.html" title="">
+                              <img src="./01_image/05_main01hydra.png" alt="하이드 라인">
+                            </a>
+                            <p class="line_txt">하이드 라인</p>
+                            <p>수분앰플의 보습을 그대로 담아<br>속보습까지 탄탄하게</p>
+                      </li>
+                    <li class="tone_line">
+                        <a href="tone_line.html" title="vb톤업라인">
+                            <img src="./01_image/05_main02toneup.png" alt="vb톤업라인">
+                          </a>
+                          <p class="line_txt">VB톤업라인</p>
+                          <p>톤업은 역시, 나인위시스<br>톤업과 자외선 차단을 한번에&#x0021;</p>
+                    </li>
+                    <li class="colla_line">
+                        <a href="colla_line.html" title="콜라겐 앰플 라인">
+                            <img src="./01_image/05_main03collagen.png" alt="콜라겐 앰플 라인">
+                          </a>
+                          <p class="line_txt">콜라겐 앰플 라인</p>
+                          <p>흡수 빠른 저분자 콜라겐 함유<br>주름개선 기능성 스킨케어</p>
+                    </li>
+                    <li class="amp_line">
+                        <a href="amp_line.html" title="앰플 세럼 라인">
+                            <img src="./01_image/05_main04ampule.png" alt="앰플 세럼 라인">
+                          </a>
+                           <p class="line_txt">앰플 세럼 라인</p>
+                           <p>컨디션 따라 똑똑하게 골라쓰는<br>피부 컨디션 앰플 라인</p>
+                    </li>
+                  </ul>
+                  <i class="fa fa-angle-left"></i>
+                  <i class="fa fa-angle-right"></i>
+              </article>
+            </section>
+
+            <!-- 6번째  추천제품 급상승 상품-->
+            <div class="box">
+                <!-- 추천 제품 -->
+                <section class="re_pro">
+                    <h3>Recommendation<br><span>Product</span></h3>
+                    <article>
+                        <h4>Recommendation</h4>
+                        <ul class="re_top">
+                            <li class="whit">
+                                <a href="whit.html" title="미백"><img src="./01_image/06_main01white.png" alt="미백">
+                                    <p>미백</p>
+                                </a>
+                            </li>
+                            <li class="ds_p">
+                                <a href="ds_p.html" title="각질_모공"><img src="./01_image/06_main02pine.png" alt="각질_모공">
+                                    <p>각질&#x00B7;모공</p>
+                                </a>
+                            </li>
+                            <li class="se_ca">
+                                <a href="se_ca.html" title="민감_진정"><img src="./01_image/06_main03calm.png" alt="민감_진정">
+                                <p>민감&#x00B7;진정</p>
+                                </a>
+                            </li>
+                        </ul>
+    
+                        <ul class="re_under">
+                            <li class="ela">
+                                <a href="ela.html" title="탄력"><img src="./01_image/05_main03collagen.png" alt="탄력">
+                                <p>탄력</p>
+                                </a>
+                            </li>
+                            <li class="water">
+                                <a href="water.html" title="수분_공급"><img src="./01_image/05_main01hydra.png" alt="수분_공급">
+                                    <p>수분&#x00B7;보습</p>
+                            </a>
+                            </li>
+                        </ul>
+                    </article>
+                </section>
+    
+                <!--급상승-->
+                <section class="hot">
+                    <h3>HOT</h3>
+                    <article class="sun"><h4>HOT</h4>
+                        <img src="./01_image/06_hot_sun.gif" alt="hot_썬 모이스처라이저">
+                        <a href="hot_sun.html" title="hot_썬 모이스처라이저">
+                            <p>&#x0023;겉은_산뜻하게 &#x0023;속은_촉촉하게</p>
+                        </a>
+                    </article>
+                </section>
+            </div>
+
+            <!-- 7번째 이벤트와 리뷰상품 -->
+            <div class="box01">
+                <!--이벤트-->
+                <section class="event_box">
+                    <h4>event</h4>
+                    <article><h3><span class="ev_box">EVENT</span></h3>
+                        <ul class="event">
+                            <li>
+                                <a href="event_ing.html" title="진행중인 이벤트" class="event_me">진행중인<span class="ev_t01"> 이벤트</span></a>
+                            </li>
+                            <li>
+                                <a href="event_end.html" title="종료된 이벤트" class="event_me">종료된<span class="ev_t01"> 이벤트</span></a>
+                            </li>
+                            <li>
+                                <a href="end.html" title="당첨자" class="event_me">당첨자</a>
+                            </li>
+                        </ul>
+                        <p class="event_img">
+                            <img src="./01_image/07_zia_main_event.jpg" alt="화제의 심수련 톤업크림"><br>
+                            [1+1]화제의 심수련 톤업크림
+                           <a href="shop.html" title="쇼핑페이지이동">shop 이동</a></p>
+                           <!-- <i class="fas fa-circle"></i><i class="far fa-circle"></i> -->
+                    </article>
+                </section>
+    
+                <!-- 추천 제품 -->
+                <section class="recommend">
+                    <h3>RECOMMEND</h3>
+                    <article><h4>recommend</h4>
+                        <img src="./01_image/07_main_pine_sun.jpg" alt="추천제품">
+                        <a href="recommend.html" title="shop으로이동">shop 이동</a>
+                        <p>
+                        <i class="far fa-heart"></i>
+                        <i class="	far fa-paper-plane"></i>
+                        <i class="far fa-comment"></i>
+                        <i class="far fa-bookmark"></i><br></p>
+                        <ul class="recom_text">
+                            <li><span>9wishes님</span> 외 <span>여러명이</span> 좋아합니다.</li>
+                            <li><span>9wishes</span></li>
+                            <li class="recom_tag">매일 찾게 되는 데일리템!</li>
+                            <li class="recom_tag">성분 + 발림성 + 마무리감까지 완벽한<br>
+                                솔잎담은 파인 썬 스크린<i class="far fa-heart"></i></li>
+                            <li class="recom_tag recom">#파인트리트먼트썬스크린  #솔잎선크림</li>
+                            <li class="recom">#파인썬스크린  #순한선크림  #성분좋은선크림</li>
+                            <li class="recom">#백탁없는선크림  #선크림추천</li>
+                            
+                        </ul>
+                    </article>
+                </section>
+            </div>
+
+            <!-- 8번째 매거진-->
+                <section class="ppl">
+                    <h3>PPL</h3>
+                    <article class="megazin">
+                        <h3>megazin</h3>
+                        <img src="./01_image/08_main_magazine.jpg" alt="에디터's pick">
+                        <p class="megazin_t01">에디터's pick ! #수분앰플</p>
+                        <p class="megazin_t02">2020마리끌레르 7월호</p>
+                        <p class="megazin_t03">
+                            <a href="more_text.html" title="더 많은 내용 보러가기">더 많은 내용 보러가기</a>
+                        </p>
+                    </article>
+    
+                    <article class="n_post">
+                        <h3>n_post</h3>
+                        <img src="./01_image/08_main_nave_post.jpg" alt="4주 모공잡는 솔잎앰플">
+                        <p class="post_t01">4주 모공잡는 솔잎앰플</p>
+                        <p class="post_t02">필터낀듯 모공 소멸</p>
+                        <p class="post_t03"><a href="more_text.html" title="더 많은 내용 보러가기">더 많은 내용 보러가기</a></p>
+                    </article>
+                </section>
+
+                <!-- 9번째 나인위시스 인스타그램-->
+            <section class="insta">
+                <h3><span>9</span> wishes&#xFF5C;<span class="insta_t01">나인위시스</span> <span class="insta_t02">INSTAGRAM</span></h3>
+                <article class="insta01"> <h4>9wishes나인위시스INSTAGRAM
+                </h4>
+                    <ul>
+                        <li class="ins01">
+                            <a href="9wishes_insta.html" title="9wishes_insta이동">
+                                <i class="fab fa-instagram"></i>
+                                <img src="./01_image/09_insta01.jpg" alt="9wishes_insta이동">
+                            </a>
+                        </li>
+                        <li class="ins02">
+                            <a href="9wishes_insta.html" title="9wishes_insta이동">
+                                <i class="fab fa-instagram"></i>
+                                <img src="./01_image/09_insta02.jpg" alt="9wishes_insta이동">
+                            </a>
+                        </li>
+                        <li class="ins03">
+                            <a href="9wishes_insta.html" title="9wishes_insta이동">
+                                <i class="fab fa-instagram"></i>
+                                <img src="./01_image/09_insta03.jpg" alt="9wishes_insta이동">
+                            </a>
+                        </li>
+                        <li class="ins04">
+                            <a href="9wishes_insta.html" title="9wishes_insta이동">
+                                <i class="fab fa-instagram"></i>
+                                <img src="./01_image/09_insta04.jpg" alt="9wishes_insta이동">
+                            </a>
+                        </li>
+                        <li class="ins05">
+                            <a href="9wishes_insta.html" title="9wishes_insta이동">
+                                <i class="fab fa-instagram"></i>
+                                <img src="./01_image/09_insta05.jpg" alt="9wishes_insta이동">
+                            </a>
+                        </li>
+                    </ul>
+                </article>
+            </section>
+
+        </main>
+
+        <!-- 푸터영역 시작 -->
+        <footer>
+            <div class="f_box">
+                <p class="f_lnb"><a href="index.html" title="이용약관">이용약관</a>&#xFF5C;<a href="index.html" title="개인정보처리방침">개인정보처리방침</a>&#xFF5C;<a href="index.html" title="공지사항">공지사항</a>&#xFF5C;<a href="index.html" title="영상정보처리방침">영상정보처리방침</a>
+                </p>
+            <article class="sns">
+                <h4>sns</h4>
+                <a href="instagram.html" title="나인위시스 인스타그램으로 이동">
+                    <i class="fab fa-instagram instagram"></i><span class="sns_t">인스타</span></a>
+                <a href="feacbook.html" title="나인위시스 페이스북으로 이동">
+                    <i class="fab fa-facebook-square"></i><span class="sns_t">나인위시스</span></a>
+                <a href="youtube.html" title="나인위시스 유투브로 이동">
+                    <i class="fab fa-youtube"></i><span class="sns_t">유튜브</span></a>
+                <p class="sns_text">FOLLOW ON US</p>
+            </article>
+
+            <address>
+            <p>상호 : &#x321C;나인위시스</p>
+            <p>대표 : 김지훈</p>
+            <p>주소 : 서울 서초구 서초대로356, 1401-1402호(서초동,서초지웰타워)</p>
+            <p>사업자번호 : 220-88-56159</p>
+            <p>통신판매업신고 : 제2016-서울서초-3713호</p>
+            <p>개인정보책임자 : 윤진어</p>
+            <p class="address_under">COPYRIGHTⓒ 2019 9WISHES. ALL RIGHT RESERVED.<br>
+            HOSTING BY MAKESHOP. DESIGN BY DESIGNWIB.</p>
+            </address>
+
+            <aside>
+                <a href="indx.html" title="위로올라가기">
+                    <i class="material-icons but_down" style="font-size:40px;color:#68696E ">keyboard_arrow_down</i>
+                    <i class="material-icons but_up" style="font-size:40px;color:#68696E ">keyboard_arrow_up</i>
+                </a>
+                                    <!-- <i class="fa fa-angle-up"></i> -->
+                    <!--fa fa-angle-double-up-->
+                    <!-- <i class="fa fa-angle-down"></i> -->
+                    <!-- fa fa-angle-double-down-->
+            </aside>
+
+        </div>
+        </footer>
+
+<!-- 슬라이더  -->
+        <script>
+            $(window).load(function() {
+                $('.flexslider').flexslider({
+                      animation: "slide"
+                  });
+              });
+        </script>
   
-</body>
-
-</html>
+    </body>
+    </html>

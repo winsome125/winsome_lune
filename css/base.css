@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+/*모든 페이지에 해당하는 서식*/
+body{
+    font-family: 'Noto Sans KR', Noto Sans, sans-serif;
+    font-size: 12px;
+    z-index: 1000;
+    color: #333;
+}
+a{color: #333; text-decoration: none;}
+
+/* 해더 푸터 서식 */
+header{
+    background-color: #fff;
+    position: relative;
+    z-index: 1000;
+}
+
+/* 체크박스 숨기기 */
+#toggle{display: none;}
+
+/* 모바일용,테블릿용 슬라이드 숨기기*/
+#tablet_slide{display: none;}
+#mobile_slide{display:none;}
+
+.spe_line > article > i,
+.queein > article > i {display:none;}
+
+/* 콘텐츠 제목 숨기기*/
+.title_hidden{display:none;}
+
+/* 각 콘텐츠 제목 숨기기*/
+h4{display: none;}
+
+/* 8번째 콘텐츠  제목 숨기기*/
+.ppl h3{display: none;}
